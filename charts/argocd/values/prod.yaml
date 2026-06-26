@@ -1,0 +1,32 @@
+argo-cd:
+  configs:
+    params:
+      server.insecure: true
+    cm:
+      timeout.reconciliation: 60s
+      url: https://argocd.uttutu.xyz
+  server:
+    replicas: 1
+    ingress:
+      enabled: true
+      ingressClassName: traefik
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+      hosts:
+        - argocd.uttutu.xyz
+      tls:
+        - secretName: argocd-tls
+          hosts:
+            - argocd.uttutu.xyz
+  dex:
+    enabled: false
+  redis-ha:
+    enabled: false
+  controller:
+    replicas: 1
+  repoServer:
+    replicas: 1
+  applicationSet:
+    replicas: 1
+  notifications:
+    enabled: false
