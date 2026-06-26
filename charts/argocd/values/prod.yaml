@@ -25,6 +25,8 @@ argo-cd:
   controller:
     replicas: 1
   repoServer:
+    serviceAccount:
+      create: false
     replicas: 1
   applicationSet:
     replicas: 1
