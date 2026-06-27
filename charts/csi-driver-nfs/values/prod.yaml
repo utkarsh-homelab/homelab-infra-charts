@@ -1,0 +1,43 @@
+csi-driver-nfs:
+  driver:
+    name: nfs.csi.k8s.io
+    mountPermissions: 0
+
+  feature:
+    enableFSGroupPolicy: true
+    enableInlineVolume: false
+
+  kubeletDir: /var/lib/kubelet
+
+  controller:
+    name: csi-nfs-controller
+    replicas: 1
+    runOnControlPlane: false
+    logLevel: 5
+    workingMountDir: /tmp
+    dnsPolicy: ClusterFirstWithHostNet
+
+  node:
+    name: csi-nfs-node
+    logLevel: 5
+    dnsPolicy: ClusterFirstWithHostNet
+    maxUnavailable: 1
+
+  externalSnapshotter:
+    enabled: false
+
+  storageClass:
+    create: true
+    name: nfs-csi
+    parameters:
+      server: 192.168.0.100
+      share: /var/nfs/kubernetes
+      subDir: "${pvc.metadata.namespace}/${pvc.metadata.name}"
+      mountPermissions: "0755"
+    reclaimPolicy: Delete
+    volumeBindingMode: Immediate
+    mountOptions:
+      - nfsvers=4.1
+      - hard          # Explicitly enforce hard mounts
+      - timeo=600     # Wait 60 seconds before retrying a request
+      - retrans=2     # Retry twice before logging a warning
