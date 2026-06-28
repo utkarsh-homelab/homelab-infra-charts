@@ -41,8 +41,6 @@ traefik:
       expose:
         default: true
       exposedPort: 443
-      tls:
-        enabled: true
     metrics:
       port: 9100
       expose:
