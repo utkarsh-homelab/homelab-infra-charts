@@ -1,0 +1,10 @@
+apiVersion: v2
+name: cert-manager
+description: Vendored cert-manager Helm chart for uttutu homelab
+type: application
+version: 1.0.0
+appVersion: v1.17.0
+dependencies:
+  - name: cert-manager
+    version: 1.17.0
+    repository: https://charts.jetstack.io

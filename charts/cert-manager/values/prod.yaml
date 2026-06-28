@@ -1,0 +1,23 @@
+cert-manager:
+  installCRDs: true
+  replicaCount: 1
+  dns01RecursiveNameservers: "192.168.0.101:53"
+  dns01RecursiveNameserversOnly: true
+
+  config:
+    apiVersion: controller.config.cert-manager.io/v1alpha1
+    kind: ControllerConfiguration
+    logging:
+      verbosity: 2
+      format: text
+
+  webhook:
+    replicaCount: 1
+
+  cainjector:
+    replicaCount: 1
+
+  prometheus:
+    servicemonitor:
+      enabled: true
+      interval: 30s

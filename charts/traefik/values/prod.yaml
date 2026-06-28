@@ -1,0 +1,97 @@
+traefik:
+  deployment:
+    kind: Deployment
+    replicas: 1
+
+  service:
+    type: LoadBalancer
+    spec:
+      loadBalancerIP: 192.168.0.200
+      externalTrafficPolicy: Local
+
+  ingressClass:
+    enabled: true
+    isDefaultClass: true
+
+  ingressRoute:
+    dashboard:
+      enabled: true
+      annotations:
+        cert-manager.io/cluster-issuer: letsencrypt-prod
+      matchRule: Host(`traefik.uttutu.xyz`) && (PathPrefix(`/dashboard`) || PathPrefix(`/api`))
+      entryPoints:
+        - websecure
+      tls:
+        secretName: wildcard-uttutu-tls
+
+  ports:
+    web:
+      port: 8000
+      expose:
+        default: true
+      exposedPort: 80
+      http:
+        redirections:
+          entryPoint:
+            to: websecure
+            scheme: https
+            permanent: true
+    websecure:
+      port: 8443
+      expose:
+        default: true
+      exposedPort: 443
+      tls:
+        enabled: true
+    metrics:
+      port: 9100
+      expose:
+        default: true
+      exposedPort: 9100
+
+  providers:
+    kubernetesCRD:
+      enabled: true
+      allowCrossNamespace: true
+      allowExternalNameServices: true
+    kubernetesIngress:
+      enabled: true
+      publishedService:
+        enabled: true
+
+  metrics:
+    prometheus:
+      entryPoint: metrics
+      addEntryPointsLabels: true
+      addServicesLabels: true
+      service:
+        enabled: true
+      serviceMonitor:
+        enabled: true
+        interval: 30s
+
+  log:
+    level: INFO
+
+  accessLog:
+    enabled: true
+
+  tls:
+    options:
+      default:
+        minVersion: VersionTLS12
+        cipherSuites:
+          - TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+          - TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+          - TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305
+          - TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305
+          - TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256
+          - TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
+
+  experimental:
+    plugins:
+      enabled: false
+
+  global:
+    checkNewVersion: false
+    sendAnonymousUsage: false

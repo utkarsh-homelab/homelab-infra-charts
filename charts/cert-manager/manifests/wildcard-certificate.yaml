@@ -1,0 +1,15 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wildcard-uttutu
+  namespace: cert-manager
+spec:
+  secretName: wildcard-uttutu-tls
+  commonName: "*.uttutu.xyz"
+  dnsNames:
+    - "*.uttutu.xyz"
+    - "uttutu.xyz"
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  renewBefore: 360h
