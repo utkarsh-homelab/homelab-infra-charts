@@ -10,7 +10,8 @@ charts/
 ├── metallb/                 → metallb (v0.16.1, app v0.14.9)
 ├── traefik/                 → traefik (v41.0.0, app v3.7.5)
 ├── cert-manager/            → cert-manager (v1.17.0, app v1.17.0)
-└── csi-driver-nfs/          → csi-driver-nfs (v4.13.3)
+├── csi-driver-nfs/          → csi-driver-nfs (v4.13.3)
+└── kube-prometheus-stack/   → kube-prometheus-stack (v87.1.0, app v0.92.0)
 ```
 
 Each chart is an umbrella chart with a single upstream dependency. 
