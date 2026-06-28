@@ -7,6 +7,7 @@ Vendored Helm charts for homelab Kubernetes cluster.
 ```
 charts/
 ├── argocd/                  → argo-cd (v9.7.0, app v3.4.4)
+├── metallb/                 → metallb (v0.16.1, app v0.14.9)
 └── csi-driver-nfs/          → csi-driver-nfs (v4.13.3)
 ```
 

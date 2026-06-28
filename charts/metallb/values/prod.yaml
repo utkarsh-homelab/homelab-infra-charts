@@ -1,0 +1,6 @@
+metallb:
+  frrk8s:
+    enabled: false
+  crds:
+    enabled: true
+    validationFailurePolicy: Fail
