@@ -1,5 +1,5 @@
 apiVersion: metallb.io/v1beta1
-kind: IPPool
+kind: IPAddressPool
 metadata:
   name: default-pool
   namespace: {{ .Release.Namespace }}
