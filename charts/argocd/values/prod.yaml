@@ -15,7 +15,7 @@ argo-cd:
       hosts:
         - argocd.uttutu.xyz
       tls:
-        - secretName: argocd-tls
+        - secretName: wildcard-uttutu-tls
           hosts:
             - argocd.uttutu.xyz
   dex:
