@@ -57,6 +57,12 @@ traefik:
       publishedService:
         enabled: true
 
+  tls:
+    stores:
+      default:
+        defaultCertificate:
+          secretName: wildcard-uttutu-tls
+          
   metrics:
     prometheus:
       entryPoint: metrics
