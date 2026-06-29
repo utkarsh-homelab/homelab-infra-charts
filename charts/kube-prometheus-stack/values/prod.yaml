@@ -51,6 +51,9 @@ kube-prometheus-stack:
         - alertmanager.uttutu.xyz
       paths:
         - /
+      tls:                          
+        - hosts:                    
+            - alertmanager.uttutu.xyz
 
   grafana:
     enabled: true
@@ -64,6 +67,9 @@ kube-prometheus-stack:
       hosts:
         - grafana.uttutu.xyz
       path: /
+      tls:                          
+        - hosts:                    
+            - alertmanager.uttutu.xyz
     persistence:
       enabled: true
       type: sts
@@ -155,6 +161,9 @@ kube-prometheus-stack:
         - prometheus.uttutu.xyz
       paths:
         - /
+      tls:                          
+        - hosts:                    
+            - alertmanager.uttutu.xyz
 
   prometheusOperator:
     admissionWebhooks:
