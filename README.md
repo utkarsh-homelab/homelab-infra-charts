@@ -25,6 +25,15 @@ helm repo add <component-name> <helm-chart-url>
 helm dependency build charts/<name>
 ```
 
+## Upstream Charts
+
+- ArgoCD : [Chart](https://artifacthub.io/packages/helm/argo/argo-cd), [Docs](https://argo-cd.readthedocs.io/en/stable/user-guide/helm/), [Source Code](https://github.com/argoproj/argo-helm/tree/main/charts/argo-cd)
+- CSI Driver NFS : [Chart](https://artifacthub.io/packages/helm/csi-driver-nfs/csi-driver-nfs), [Source Code](https://github.com/kubernetes-csi/csi-driver-nfs)
+- MetalLB : [Chart](https://artifacthub.io/packages/helm/metallb/metallb), [Docs](https://metallb.universe.tf/installation/), [Source Code](https://github.com/metallb/metallb)
+- Traefik : [Chart](https://artifacthub.io/packages/helm/traefik/traefik), [Docs](https://doc.traefik.io/traefik/getting-started/), [Source Code](https://github.com/traefik/traefik-helm-chart)
+- Cert Manager : [Chart](https://artifacthub.io/packages/helm/cert-manager/cert-manager), [Docs](https://cert-manager.io/docs/installation/helm/), [Source Code](https://github.com/cert-manager/cert-manager)
+- Kube Prometheus Stack : [Chart](https://artifacthub.io/packages/helm/prometheus-community/kube-prometheus-stack),  [Source Code](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack)
+
 ## Companion Repo
 
 Continuous deployment (CD) is Handled by ArgoCD, refer to the GitOps repo here : [homelab-gitops](https://github.com/utkarsh-homelab/homelab-gitops)
