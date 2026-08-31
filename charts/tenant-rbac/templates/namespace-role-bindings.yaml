@@ -1,0 +1,18 @@
+{{- range .Values.tenant_rbac.namespaces }}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: tenant-admin-binding
+  namespace: {{ . }}
+  labels:
+    app.kubernetes.io/managed-by: helm
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: tenant-admin
+subjects:
+  - kind: {{ .Values.tenant_rbac.subject.kind }}
+    name: {{ .Values.tenant_rbac.subject.name }}
+    apiGroup: rbac.authorization.k8s.io
+---
+{{- end }}

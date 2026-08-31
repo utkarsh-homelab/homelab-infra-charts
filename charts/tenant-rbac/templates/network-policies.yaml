@@ -1,0 +1,55 @@
+{{- range .Values.tenant_rbac.namespaces }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: tenant-network-policy
+  namespace: {{ . }}
+  labels:
+    app.kubernetes.io/managed-by: helm
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    # Allow from Traefik (ingress controller)
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: traefik
+    # Allow from other tenant namespaces
+    - from:
+        {{- range $.Values.tenant_rbac.namespaces }}
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: {{ . }}
+        {{- end }}
+  egress:
+    # Allow DNS (kube-system CoreDNS)
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+      ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
+    # Allow to other tenant namespaces
+    - to:
+        {{- range $.Values.tenant_rbac.namespaces }}
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: {{ . }}
+        {{- end }}
+    # Allow to internet (image pulls, external APIs)
+    # Blocks cluster-internal CIDRs (10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16)
+    - to:
+        - ipBlock:
+            cidr: 0.0.0.0/0
+            except:
+              - 10.0.0.0/8
+              - 172.16.0.0/12
+              - 192.168.0.0/16
+---
+{{- end }}

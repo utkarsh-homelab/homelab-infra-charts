@@ -1,0 +1,14 @@
+{{- range .Values.tenant_rbac.namespaces }}
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: {{ . }}
+  labels:
+    managed-by: tenant
+    app.kubernetes.io/managed-by: helm
+    # Pod Security Admission — enforce baseline, warn on restricted
+    pod-security.kubernetes.io/enforce: baseline
+    pod-security.kubernetes.io/audit: restricted
+    pod-security.kubernetes.io/warn: restricted
+---
+{{- end }}

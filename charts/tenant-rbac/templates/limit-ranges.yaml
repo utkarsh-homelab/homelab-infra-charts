@@ -1,0 +1,25 @@
+{{- range .Values.tenant_rbac.namespaces }}
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: tenant-limit-range
+  namespace: {{ . }}
+  labels:
+    app.kubernetes.io/managed-by: helm
+spec:
+  limits:
+    - type: Container
+      default:
+        cpu: {{ .Values.tenant_rbac.limitRange.default.cpu | quote }}
+        memory: {{ .Values.tenant_rbac.limitRange.default.memory | quote }}
+      defaultRequest:
+        cpu: {{ .Values.tenant_rbac.limitRange.defaultRequest.cpu | quote }}
+        memory: {{ .Values.tenant_rbac.limitRange.defaultRequest.memory | quote }}
+      max:
+        cpu: {{ .Values.tenant_rbac.limitRange.max.cpu | quote }}
+        memory: {{ .Values.tenant_rbac.limitRange.max.memory | quote }}
+      min:
+        cpu: {{ .Values.tenant_rbac.limitRange.min.cpu | quote }}
+        memory: {{ .Values.tenant_rbac.limitRange.min.memory | quote }}
+---
+{{- end }}

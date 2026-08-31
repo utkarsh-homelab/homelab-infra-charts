@@ -1,0 +1,41 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: {{ .Values.tenant_rbac.project.name }}
+  namespace: argocd
+  labels:
+    app.kubernetes.io/managed-by: helm
+spec:
+  description: "tenant's project — restricted to specific namespaces"
+
+  # Only this repo can be deployed from
+  sourceRepos:
+    - {{ .Values.tenant_rbac.project.gitRepo | quote }}
+
+  # Only these namespaces are valid destinations
+  destinations:
+    {{- range .Values.tenant_rbac.namespaces }}
+    - server: https://kubernetes.default.svc
+      namespace: {{ . }}
+    {{- end }}
+
+  # Can list namespaces at cluster scope (for namespace picker in UI)
+  clusterResourceWhitelist:
+    - group: ""
+      kind: Namespace
+
+  # Deny access to secrets and ArgoCD resources (defense in depth)
+  namespaceResourceBlacklist:
+    - group: ""
+      kind: Secret
+    # Prevent tenant from creating ArgoCD resources
+    - group: "argoproj.io"
+      kind: Application
+    - group: "argoproj.io"
+      kind: ApplicationSet
+    - group: "argoproj.io"
+      kind: AppProject
+    - group: "argoproj.io"
+      kind: Repository
+    - group: "argoproj.io"
+      kind: Credentials
