@@ -11,6 +11,7 @@ charts/
 ├── traefik/                 → traefik (v41.0.0, app v3.7.5)
 ├── cert-manager/            → cert-manager (v1.17.0, app v1.17.0)
 ├── csi-driver-nfs/          → csi-driver-nfs (v4.13.3)
+├── tenant-rbac/             → tenant-rbac (v1.0.0)
 └── kube-prometheus-stack/   → kube-prometheus-stack (v87.1.0, app v0.92.0)
 ```
 
