@@ -5,6 +5,15 @@ argo-cd:
     cm:
       timeout.reconciliation: 60s
       url: https://argocd.uttutu.xyz
+      # NEW: Add tenant account (login = can log in to UI, apiKey = can generate tokens)
+      accounts.tenant: "apiKey, login"
+      rbac:
+      # NEW: Bind tenant to the built-in readonly role
+      policy.csv: |
+        g, tenant, role:readonly
+      # Default role for all authenticated users (readonly is the most restrictive)
+      policy.default: role:readonly
+      scopes: '[groups]'
   server:
     replicas: 1
     ingress:
