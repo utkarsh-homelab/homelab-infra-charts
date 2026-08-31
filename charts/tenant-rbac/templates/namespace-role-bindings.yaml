@@ -1,4 +1,4 @@
-{{- range .Values.tenant_rbac.namespaces }}
+{{- range $.Values.tenant_rbac.namespaces }}
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
@@ -11,8 +11,8 @@ roleRef:
   kind: Role
   name: tenant-admin
 subjects:
-  - kind: {{ .Values.tenant_rbac.subject.kind }}
-    name: {{ .Values.tenant_rbac.subject.name }}
+  - kind: {{ $.Values.tenant_rbac.subject.kind }}
+    name: {{ $.Values.tenant_rbac.subject.name }}
     apiGroup: rbac.authorization.k8s.io
 ---
 {{- end }}

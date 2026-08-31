@@ -1,4 +1,4 @@
-{{- range .Values.tenant_rbac.namespaces }}
+{{- range $.Values.tenant_rbac.namespaces }}
 apiVersion: v1
 kind: LimitRange
 metadata:
@@ -10,16 +10,16 @@ spec:
   limits:
     - type: Container
       default:
-        cpu: {{ .Values.tenant_rbac.limitRange.default.cpu | quote }}
-        memory: {{ .Values.tenant_rbac.limitRange.default.memory | quote }}
+        cpu: {{ $.Values.tenant_rbac.limitRange.default.cpu | quote }}
+        memory: {{ $.Values.tenant_rbac.limitRange.default.memory | quote }}
       defaultRequest:
-        cpu: {{ .Values.tenant_rbac.limitRange.defaultRequest.cpu | quote }}
-        memory: {{ .Values.tenant_rbac.limitRange.defaultRequest.memory | quote }}
+        cpu: {{ $.Values.tenant_rbac.limitRange.defaultRequest.cpu | quote }}
+        memory: {{ $.Values.tenant_rbac.limitRange.defaultRequest.memory | quote }}
       max:
-        cpu: {{ .Values.tenant_rbac.limitRange.max.cpu | quote }}
-        memory: {{ .Values.tenant_rbac.limitRange.max.memory | quote }}
+        cpu: {{ $.Values.tenant_rbac.limitRange.max.cpu | quote }}
+        memory: {{ $.Values.tenant_rbac.limitRange.max.memory | quote }}
       min:
-        cpu: {{ .Values.tenant_rbac.limitRange.min.cpu | quote }}
-        memory: {{ .Values.tenant_rbac.limitRange.min.memory | quote }}
+        cpu: {{ $.Values.tenant_rbac.limitRange.min.cpu | quote }}
+        memory: {{ $.Values.tenant_rbac.limitRange.min.memory | quote }}
 ---
 {{- end }}

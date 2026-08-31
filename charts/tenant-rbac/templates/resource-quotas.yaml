@@ -1,4 +1,4 @@
-{{- range .Values.tenant_rbac.namespaces }}
+{{- range $.Values.tenant_rbac.namespaces }}
 apiVersion: v1
 kind: ResourceQuota
 metadata:
@@ -8,12 +8,12 @@ metadata:
     app.kubernetes.io/managed-by: helm
 spec:
   hard:
-    requests.cpu: {{ .Values.tenant_rbac.resourceQuota.requests.cpu | quote }}
-    requests.memory: {{ .Values.tenant_rbac.resourceQuota.requests.memory | quote }}
-    limits.cpu: {{ .Values.tenant_rbac.resourceQuota.limits.cpu | quote }}
-    limits.memory: {{ .Values.tenant_rbac.resourceQuota.limits.memory | quote }}
-    persistentvolumeclaims: {{ .Values.tenant_rbac.resourceQuota.persistentvolumeclaims | quote }}
-    requests.storage: {{ .Values.tenant_rbac.resourceQuota.requests.storage | quote }}
-    pods: {{ .Values.tenant_rbac.resourceQuota.pods | quote }}
+    requests.cpu: {{ $.Values.tenant_rbac.resourceQuota.requests.cpu | quote }}
+    requests.memory: {{ $.Values.tenant_rbac.resourceQuota.requests.memory | quote }}
+    limits.cpu: {{ $.Values.tenant_rbac.resourceQuota.limits.cpu | quote }}
+    limits.memory: {{ $.Values.tenant_rbac.resourceQuota.limits.memory | quote }}
+    persistentvolumeclaims: {{ $.Values.tenant_rbac.resourceQuota.persistentvolumeclaims | quote }}
+    requests.storage: {{ $.Values.tenant_rbac.resourceQuota.requests.storage | quote }}
+    pods: {{ $.Values.tenant_rbac.resourceQuota.pods | quote }}
 ---
 {{- end }}

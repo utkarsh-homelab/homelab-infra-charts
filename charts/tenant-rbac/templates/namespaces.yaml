@@ -1,4 +1,4 @@
-{{- range .Values.tenant_rbac.namespaces }}
+{{- range $.Values.tenant_rbac.namespaces }}
 apiVersion: v1
 kind: Namespace
 metadata:

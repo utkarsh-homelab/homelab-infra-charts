@@ -6,7 +6,7 @@ metadata:
   labels:
     app.kubernetes.io/managed-by: helm
 spec:
-  description: "tenant's project — restricted to specific namespaces"
+  description: "Tenant's project — restricted to specific namespaces"
 
   # Only this repo can be deployed from
   sourceRepos:
@@ -14,7 +14,7 @@ spec:
 
   # Only these namespaces are valid destinations
   destinations:
-    {{- range .Values.tenant_rbac.namespaces }}
+    {{- range $.Values.tenant_rbac.namespaces }}
     - server: https://kubernetes.default.svc
       namespace: {{ . }}
     {{- end }}
