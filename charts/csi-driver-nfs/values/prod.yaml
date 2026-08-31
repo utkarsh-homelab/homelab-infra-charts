@@ -26,18 +26,48 @@ csi-driver-nfs:
   externalSnapshotter:
     enabled: false
 
-  storageClass:
-    create: true
-    name: nfs-csi
-    parameters:
-      server: 192.168.0.100
-      share: /var/nfs/kubernetes
-      subDir: "${pvc.metadata.namespace}/${pvc.metadata.name}"
-      mountPermissions: "0755"
-    reclaimPolicy: Delete
-    volumeBindingMode: Immediate
-    mountOptions:
-      - nfsvers=4.1
-      - hard          # Explicitly enforce hard mounts
-      - timeo=600     # Wait 60 seconds before retrying a request
-      - retrans=2     # Retry twice before logging a warning
+  # storageClass:
+  #   create: true
+  #   name: nfs-csi
+  #   parameters:
+  #     server: 192.168.0.100
+  #     share: /var/nfs/kubernetes
+  #     subDir: "${pvc.metadata.namespace}/${pvc.metadata.name}"
+  #     mountPermissions: "0755"
+  #   reclaimPolicy: Delete
+  #   volumeBindingMode: Immediate
+  #   mountOptions:
+  #     - nfsvers=4.1
+  #     - hard          # Explicitly enforce hard mounts
+  #     - timeo=600     # Wait 60 seconds before retrying a request
+  #     - retrans=2     # Retry twice before logging a warning
+
+  storageClasses:
+    - name: nfs-csi
+      parameters:
+        server: 192.168.0.100
+        share: /var/nfs/kubernetes
+        subDir: "${pvc.metadata.namespace}/${pvc.metadata.name}"
+        mountPermissions: "0755"
+      reclaimPolicy: Delete
+      volumeBindingMode: Immediate
+      mountOptions:
+        - nfsvers=4.1
+        - hard          # Explicitly enforce hard mounts
+        - timeo=600     # Wait 60 seconds before retrying a request
+        - retrans=2     # Retry twice before logging a warning
+    - name: nfs-csi-pve2
+      annotations:
+        storageclass.kubernetes.io/is-default-class: "true"
+      parameters:
+        server: 192.168.0.110
+        share: /var/nfs/kubernetes
+        subDir: "${pvc.metadata.namespace}/${pvc.metadata.name}"
+        mountPermissions: "0755"
+      reclaimPolicy: Delete
+      volumeBindingMode: Immediate
+      mountOptions:
+        - nfsvers=4.1
+        - hard          # Explicitly enforce hard mounts
+        - timeo=600     # Wait 60 seconds before retrying a request
+        - retrans=2     # Retry twice before logging a warning
