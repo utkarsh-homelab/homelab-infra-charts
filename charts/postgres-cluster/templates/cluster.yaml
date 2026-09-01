@@ -1,0 +1,52 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: {{ .Values.postgres.name }}
+  namespace: {{ .Values.postgres.namespace }}
+spec:
+  description: Single-node PostgreSQL cluster for homelab
+
+  imageName: ghcr.io/cloudnative-pg/postgresql:16
+
+  instances: {{ .Values.postgres.instances }}
+
+  postgresUID: 26
+  postgresGID: 26
+
+  primaryUpdateStrategy: unsupervised
+
+  storage:
+    size: {{ .Values.postgres.storage.size }}
+    storageClass: {{ .Values.postgres.storage.storageClass }}
+
+  resources:
+    requests:
+      memory: {{ .Values.postgres.resources.requests.memory }}
+      cpu: {{ .Values.postgres.resources.requests.cpu }}
+    limits:
+      memory: {{ .Values.postgres.resources.limits.memory }}
+      cpu: {{ .Values.postgres.resources.limits.cpu }}
+
+  postgresql:
+    parameters:
+      {{- toYaml .Values.postgres.parameters | nindent 6 }}
+
+  {{- if .Values.postgres.backup.enabled }}
+  backup:
+    barmanObjectStore:
+      destinationPath: "s3://pg-backups/"
+      endpointURL: "https://minio.example.com"
+      s3Credentials:
+        accessKeyId:
+          name: pg-backup-s3
+          key: ACCESS_KEY_ID
+        secretAccessKey:
+          name: pg-backup-s3
+          key: ACCESS_SECRET_KEY
+    retentionPolicy: "30d"
+  {{- end }}
+
+  {{- if .Values.postgres.monitoring.enablePodMonitor }}
+  monitoring:
+    enablePodMonitor: true
+  {{- end }}

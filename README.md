@@ -13,9 +13,11 @@ charts/
 ├── csi-driver-nfs/          → csi-driver-nfs (v4.13.3)
 ├── tenant-rbac/             → tenant-rbac (v1.0.0)
 ├── kube-prometheus-stack/   → kube-prometheus-stack (v87.1.0, app v0.92.0)
-├── local-path-provisioner/  → local-path-provisioner (v0.0.31)
+├── local-path-provisioner/  → local-path-provisioner (v0.0.37)
 ├── strimzi-kafka/           → strimzi-kafka-operator (v0.46.1)
-└── kafka-cluster/           → standalone (Kafka KRaft single-node)
+├── kafka-cluster/           → standalone (Kafka KRaft single-node)
+├── cloudnative-pg/          → cloudnative-pg (v1.30.0, chart v0.29.0)
+└── postgres-cluster/        → standalone (PostgreSQL 16 single-node)
 ```
 
 Each chart is an umbrella chart with a single upstream dependency. 
@@ -39,6 +41,7 @@ helm dependency build charts/<name>
 - Kube Prometheus Stack : [Chart](https://artifacthub.io/packages/helm/prometheus-community/kube-prometheus-stack),  [Source Code](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack)
 - Local Path Provisioner : [Chart](https://artifacthub.io/packages/helm/rancher-local-path-provisioner/local-path-provisioner), [Source Code](https://github.com/rancher/local-path-provisioner)
 - Strimzi Kafka Operator : [Chart](https://artifacthub.io/packages/helm/strimzi/strimzi-kafka-operator), [Docs](https://strimzi.io/docs/operators/latest/), [Source Code](https://github.com/strimzi/strimzi-kafka-operator)
+- CloudNativePG Operator : [Chart](https://artifacthub.io/packages/helm/cloudnative-pg/cloudnative-pg), [Docs](https://cloudnative-pg.io/documentation/), [Source Code](https://github.com/cloudnative-pg/charts)
 
 ## Companion Repo
 

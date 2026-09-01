@@ -1,0 +1,71 @@
+cloudnative-pg:
+  replicaCount: 1
+
+  image:
+    repository: ghcr.io/cloudnative-pg/cloudnative-pg
+    pullPolicy: IfNotPresent
+    tag: ""
+
+  crds:
+    create: true
+
+  webhook:
+    port: 9443
+    mutating:
+      create: true
+      failurePolicy: Fail
+    validating:
+      create: true
+      failurePolicy: Fail
+
+  config:
+    create: true
+    clusterWide: true
+    secret: false
+    data: {}
+      # INHERITED_ANNOTATIONS: categories
+      # INHERITED_LABELS: environment, workload, app
+
+  maxConcurrentReconciles: 10
+
+  serviceAccount:
+    create: true
+    name: ""
+
+  rbac:
+    create: true
+    aggregateClusterRoles: false
+
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    readOnlyRootFilesystem: true
+    runAsUser: 10001
+    runAsGroup: 10001
+    seccompProfile:
+      type: RuntimeDefault
+    capabilities:
+      drop:
+        - "ALL"
+
+  podSecurityContext:
+    runAsNonRoot: true
+    seccompProfile:
+      type: RuntimeDefault
+
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 256Mi
+
+  monitoring:
+    podMonitorEnabled: false
+    grafanaDashboard:
+      create: false
+
+  updateStrategy: {}
+  nodeSelector: {}
+  tolerations: []
+  affinity: {}

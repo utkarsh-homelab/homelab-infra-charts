@@ -1,0 +1,5 @@
+apiVersion: v2
+name: postgres-cluster
+description: Single-node PostgreSQL cluster using CloudNativePG
+type: application
+version: 1.0.0

@@ -1,0 +1,22 @@
+{{- if .Values.postgres.service }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.postgres.name }}-external
+  namespace: {{ .Values.postgres.namespace }}
+  labels:
+    cnpg.io/cluster: {{ .Values.postgres.name }}
+spec:
+  type: {{ .Values.postgres.service.type }}
+  {{- if .Values.postgres.service.loadBalancerIP }}
+  loadBalancerIP: {{ .Values.postgres.service.loadBalancerIP }}
+  {{- end }}
+  ports:
+    - port: {{ .Values.postgres.service.port }}
+      targetPort: 5432
+      protocol: TCP
+      name: postgres
+  selector:
+    cnpg.io/cluster: {{ .Values.postgres.name }}
+    role: primary
+{{- end }}

@@ -1,0 +1,50 @@
+postgres:
+  name: homelab-postgres
+  namespace: postgres
+
+  instances: 1
+
+  postgresVersion: 16
+
+  storage:
+    size: 5Gi
+    storageClass: local-path
+
+  resources:
+    requests:
+      memory: 512Mi
+      cpu: "500m"
+    limits:
+      memory: 1Gi
+      cpu: "1"
+
+  parameters:
+    max_connections: "200"
+    shared_buffers: "256MB"
+    effective_cache_size: "768MB"
+    maintenance_work_mem: "128MB"
+    checkpoint_completion_target: "0.9"
+    wal_buffers: "16MB"
+    default_statistics_target: "100"
+    random_page_cost: "1.1"
+    effective_io_concurrency: "200"
+    work_mem: "1310kB"
+    huge_pages: "off"
+    min_wal_size: "1GB"
+    max_wal_size: "4GB"
+
+  backup:
+    enabled: false
+
+  monitoring:
+    enablePodMonitor: false
+
+  superuserSecret:
+    name: postgres-superuser
+    username: postgres
+    # Password will be auto-generated if not set
+
+  service:
+    type: LoadBalancer
+    loadBalancerIP: 192.168.0.204
+    port: 5432
