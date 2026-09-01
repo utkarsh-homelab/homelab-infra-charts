@@ -8,7 +8,7 @@ kafka:
     storage:
       type: persistent-claim
       size: 5Gi
-      storageClass: local-path
+      class: local-path
       deleteClaim: false
     resources:
       requests:
@@ -52,8 +52,9 @@ kafka:
       configuration:
         bootstrap:
           loadBalancerIP: 192.168.0.202
-        brokerPorts:
-          loadBalancerIP: 192.168.0.202
+        brokers:
+          - broker: 0
+            loadBalancerIP: 192.168.0.202
 
   entityOperator:
     topicOperator: {}
