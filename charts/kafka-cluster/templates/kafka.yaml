@@ -5,6 +5,8 @@ metadata:
   namespace: {{ .Values.kafka.namespace }}
   annotations:
     strimzi.io/pod-recovery: enabled
+    strimzi.io/kraft: enabled
+    strimzi.io/node-pools: enabled
 spec:
   kafka:
     version: 4.0.0
