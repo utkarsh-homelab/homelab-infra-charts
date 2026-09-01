@@ -13,7 +13,7 @@ spec:
   storage:
     type: {{ .Values.kafka.kafkaNodePool.storage.type }}
     size: {{ .Values.kafka.kafkaNodePool.storage.size }}
-    storageClass: {{ .Values.kafka.kafkaNodePool.storage.class }}
+    class: {{ .Values.kafka.kafkaNodePool.storage.class }}
     deleteClaim: {{ .Values.kafka.kafkaNodePool.storage.deleteClaim }}
   resources:
     requests:
