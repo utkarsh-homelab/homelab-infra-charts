@@ -1,0 +1,62 @@
+kafka:
+  name: homelab-kafka
+  namespace: kafka
+
+  kafkaNodePool:
+    name: pooled
+    replicas: 1
+    storage:
+      type: persistent-claim
+      size: 5Gi
+      storageClass: local-path
+      deleteClaim: false
+    resources:
+      requests:
+        memory: 2Gi
+        cpu: "1"
+      limits:
+        memory: 2Gi
+        cpu: "2"
+    jvmOptions:
+      "-Xms": "1g"
+      "-Xmx": "1g"
+
+  config:
+    offsets.topic.replication.factor: 1
+    transaction.state.log.replication.factor: 1
+    transaction.state.log.min.isr: 1
+    default.replication.factor: 1
+    min.insync.replicas: 1
+    log.retention.hours: 168
+    log.retention.bytes: 1073741824
+    num.partitions: 1
+    num.network.threads: 4
+    num.io.threads: 8
+    socket.send.buffer.bytes: 102400
+    socket.receive.buffer.bytes: 102400
+    socket.request.max.bytes: 104857600
+
+  listeners:
+    - name: plain
+      port: 9092
+      type: internal
+      tls: false
+    - name: tls
+      port: 9093
+      type: internal
+      tls: true
+    - name: external
+      port: 9094
+      type: loadbalancer
+      tls: false
+      configuration:
+        bootstrap:
+          loadBalancerIP: 192.168.0.202
+        brokerPorts:
+          loadBalancerIP: 192.168.0.202
+
+  entityOperator:
+    topicOperator: {}
+    userOperator: {}
+
+  zookeeper: {}

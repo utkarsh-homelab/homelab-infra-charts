@@ -1,0 +1,5 @@
+apiVersion: v2
+name: kafka-cluster
+description: Single-node KRaft Kafka cluster for uttutu homelab
+type: application
+version: 1.0.0

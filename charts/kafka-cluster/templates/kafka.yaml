@@ -1,0 +1,37 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: Kafka
+metadata:
+  name: {{ .Values.kafka.name }}
+  namespace: {{ .Values.kafka.namespace }}
+  annotations:
+    strimzi.io/pod-recovery: enabled
+spec:
+  kafka:
+    version: 4.0.0
+    replicas: {{ .Values.kafka.kafkaNodePool.replicas }}
+    listeners:
+      {{- toYaml .Values.kafka.listeners | nindent 6 }}
+    config:
+      {{- toYaml .Values.kafka.config | nindent 6 }}
+    storage:
+      type: {{ .Values.kafka.kafkaNodePool.storage.type }}
+      volumes:
+        - id: 0
+          type: persistent-claim
+          size: {{ .Values.kafka.kafkaNodePool.storage.size }}
+          storageClass: {{ .Values.kafka.kafkaNodePool.storage.storageClass }}
+          deleteClaim: {{ .Values.kafka.kafkaNodePool.storage.deleteClaim }}
+    resources:
+      requests:
+        memory: {{ .Values.kafka.kafkaNodePool.resources.requests.memory }}
+        cpu: {{ .Values.kafka.kafkaNodePool.resources.requests.cpu | quote }}
+      limits:
+        memory: {{ .Values.kafka.kafkaNodePool.resources.limits.memory }}
+        cpu: {{ .Values.kafka.kafkaNodePool.resources.limits.cpu | quote }}
+    jvmOptions:
+      {{- range $key, $value := .Values.kafka.kafkaNodePool.jvmOptions }}
+      {{ $key }}: {{ $value | quote }}
+      {{- end }}
+  entityOperator:
+    topicOperator: {}
+    userOperator: {}

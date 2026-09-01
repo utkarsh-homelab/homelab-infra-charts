@@ -1,0 +1,47 @@
+strimzi-kafka-operator:
+  watchNamespaces: []
+  watchAllNamespaces: true
+
+  replicas: 1
+
+  resources:
+    requests:
+      cpu: 200m
+      memory: 384Mi
+    limits:
+      cpu: 1000m
+      memory: 384Mi
+
+  logLevel: INFO
+  logFormat: json
+
+  featureGates: ""
+
+  operationTimeoutMs: 300000
+
+  operator:
+    resources:
+      requests:
+        cpu: 200m
+        memory: 384Mi
+      limits:
+        cpu: 1000m
+        memory: 384Mi
+
+  topicOperator:
+    resources:
+      requests:
+        cpu: 200m
+        memory: 256Mi
+      limits:
+        cpu: 500m
+        memory: 256Mi
+
+  userOperator:
+    resources:
+      requests:
+        cpu: 200m
+        memory: 256Mi
+      limits:
+        cpu: 500m
+        memory: 256Mi

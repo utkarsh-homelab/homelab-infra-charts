@@ -1,0 +1,6 @@
+dependencies:
+- name: local-path-provisioner
+  repository: oci://ghcr.io/rancher/local-path-provisioner/charts
+  version: 0.0.37
+digest: sha256:2d61bf04d5037e74877828e79b5cab39d394d494da213c324292146795bb15fb
+generated: "2026-09-01T10:14:33.117592175+05:30"

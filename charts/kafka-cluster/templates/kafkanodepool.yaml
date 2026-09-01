@@ -1,0 +1,28 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaNodePool
+metadata:
+  name: {{ .Values.kafka.kafkaNodePool.name }}
+  namespace: {{ .Values.kafka.namespace }}
+  labels:
+    strimzi.io/cluster: {{ .Values.kafka.name }}
+spec:
+  replicas: {{ .Values.kafka.kafkaNodePool.replicas }}
+  roles:
+    - controller
+    - broker
+  storage:
+    type: {{ .Values.kafka.kafkaNodePool.storage.type }}
+    size: {{ .Values.kafka.kafkaNodePool.storage.size }}
+    storageClass: {{ .Values.kafka.kafkaNodePool.storage.storageClass }}
+    deleteClaim: {{ .Values.kafka.kafkaNodePool.storage.deleteClaim }}
+  resources:
+    requests:
+      memory: {{ .Values.kafka.kafkaNodePool.resources.requests.memory }}
+      cpu: {{ .Values.kafka.kafkaNodePool.resources.requests.cpu | quote }}
+    limits:
+      memory: {{ .Values.kafka.kafkaNodePool.resources.limits.memory }}
+      cpu: {{ .Values.kafka.kafkaNodePool.resources.limits.cpu | quote }}
+  jvmOptions:
+    {{- range $key, $value := .Values.kafka.kafkaNodePool.jvmOptions }}
+    {{ $key }}: {{ $value | quote }}
+    {{- end }}

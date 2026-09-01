@@ -1,0 +1,10 @@
+apiVersion: v2
+name: strimzi-kafka
+description: Vendored Strimzi Kafka operator Helm chart for uttutu homelab
+type: application
+version: 1.0.0
+appVersion: 0.46.1
+dependencies:
+  - name: strimzi-kafka-operator
+    version: 0.46.1
+    repository: https://strimzi.github.io/charts
