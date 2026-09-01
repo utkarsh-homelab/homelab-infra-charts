@@ -1,0 +1,16 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod-iresh
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: iresh.sharma8@gmail.com
+    privateKeySecretRef:
+      name: letsencrypt-prod-iresh-account-key
+    solvers:
+      - dns01:
+          cloudflare:
+            apiTokenSecretRef:
+              name: cloudflare-api-token-iresh
+              key: api-token
