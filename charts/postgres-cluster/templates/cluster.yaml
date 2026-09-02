@@ -10,9 +10,7 @@ spec:
 
   instances: {{ .Values.postgres.instances }}
 
-  enableSuperuserAccess: true
-  superuserSecret:
-    name: {{ .Values.postgres.superuserSecret.name }}
+  enableSuperuserAccess: false
 
   postgresUID: 26
   postgresGID: 26
