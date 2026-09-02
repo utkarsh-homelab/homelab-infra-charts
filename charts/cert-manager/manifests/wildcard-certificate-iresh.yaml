@@ -2,7 +2,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: wildcard-iresharma
-  namespace: cert-manager
+  namespace: iresharma
 spec:
   secretName: wildcard-iresharma-tls
   commonName: "*.iresharma.com"
