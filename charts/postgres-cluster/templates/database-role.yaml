@@ -1,0 +1,14 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: DatabaseRole
+metadata:
+  name: db-iresh-role
+  namespace: postgres
+spec:
+  cluster:
+    name: homelab-postgres
+  name: db-iresh
+  login: true
+  superuser: false
+  createdb: true
+  passwordSecret:
+    name: db-iresh-role-secret

@@ -1,0 +1,13 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: pgvector-db-iresh
+  namespace: postgres
+spec:
+  name: lensdistill
+  owner: db-iresh
+  cluster:
+    name: homelab-postgres
+  extensions:
+    - name: vector
+      ensure: present
