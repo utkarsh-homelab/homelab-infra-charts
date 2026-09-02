@@ -1,0 +1,55 @@
+replicaCount: 1
+
+image:
+  repository: docker.io/uttutu/alertmanager-discord-webhook
+  tag: "0.1.0"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8080
+
+# Secret must be created manually BEFORE deploying:
+# kubectl create secret generic alertmanager-discord-webhook \
+#   --namespace monitoring \
+#   --from-literal=discord-webhook-url='https://discord.com/api/webhooks/YOUR_WEBHOOK_URL'
+existingSecret: alertmanager-discord-webhook
+
+# Alert filtering configuration
+# Edit these values to control which alerts get sent to Discord
+config:
+  # Only send alerts from these namespaces (empty = all namespaces)
+  # Example: ["monitoring", "production"]
+  namespaces: []
+
+  # Only send alerts matching these labels (empty = all labels)
+  # Format: key=value pairs, all conditions must match (AND logic)
+  # Example: { severity: "critical", team: "platform" }
+  labels: {}
+
+  # Only send alerts with these names (empty = all alerts)
+  # Example: ["NodeDown", "PodCrashLooping"]
+  alertnames: []
+
+  # Exclude alerts matching these names
+  # Example: ["Watchdog"]
+  excludeAlertnames: []
+
+  # Minimum severity to send (empty = all severities)
+  # Supported: info, warning, critical
+  # Only alerts with severity >= this level will be sent
+  minSeverity: ""
+
+resources:
+  requests:
+    memory: 32Mi
+    cpu: 10m
+  limits:
+    memory: 64Mi
+    cpu: 50m
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

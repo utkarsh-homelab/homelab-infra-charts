@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "alertmanager-discord-webhook.fullname" . }}
+  labels:
+    {{- include "alertmanager-discord-webhook.labels" . | nindent 4 }}
+data:
+  config.yaml: |
+    namespaces:
+      {{- toYaml .Values.config.namespaces | nindent 6 }}
+    labels:
+      {{- toYaml .Values.config.labels | nindent 6 }}
+    alertnames:
+      {{- toYaml .Values.config.alertnames | nindent 6 }}
+    excludeAlertnames:
+      {{- toYaml .Values.config.excludeAlertnames | nindent 6 }}
+    minSeverity: {{ .Values.config.minSeverity | quote }}

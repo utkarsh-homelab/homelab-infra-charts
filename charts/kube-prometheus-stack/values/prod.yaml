@@ -24,6 +24,26 @@ kube-prometheus-stack:
 
   alertmanager:
     enabled: true
+    config:
+      global:
+        resolve_timeout: 5m
+      route:
+        receiver: discord
+        group_by: ['alertname', 'namespace']
+        group_wait: 30s
+        group_interval: 5m
+        repeat_interval: 4h
+        routes:
+          - receiver: discord
+            match:
+              severity: critical
+            group_wait: 10s
+            repeat_interval: 1h
+      receivers:
+        - name: discord
+          webhook_configs:
+            - url: 'http://alertmanager-discord-webhook.monitoring.svc:8080/webhook'
+              send_resolved: true
     alertmanagerSpec:
       replicas: 1
       retention: 120h

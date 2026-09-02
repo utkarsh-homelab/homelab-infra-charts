@@ -6,18 +6,19 @@ Vendored Helm charts for homelab Kubernetes cluster.
 
 ```
 charts/
-├── argocd/                  → argo-cd (v9.7.0, app v3.4.4)
-├── metallb/                 → metallb (v0.16.1, app v0.14.9)
-├── traefik/                 → traefik (v41.0.0, app v3.7.5)
-├── cert-manager/            → cert-manager (v1.17.0, app v1.17.0)
-├── csi-driver-nfs/          → csi-driver-nfs (v4.13.3)
-├── tenant-rbac/             → tenant-rbac (v1.0.0)
-├── kube-prometheus-stack/   → kube-prometheus-stack (v87.1.0, app v0.92.0)
-├── local-path-provisioner/  → local-path-provisioner (v0.0.37)
-├── strimzi-kafka/           → strimzi-kafka-operator (v0.46.1)
-├── kafka-cluster/           → standalone (Kafka KRaft single-node)
-├── cloudnative-pg/          → cloudnative-pg (v1.30.0, chart v0.29.0)
-└── postgres-cluster/        → standalone (PostgreSQL 16 single-node)
+├── argocd/                           → argo-cd (v9.7.0, app v3.4.4)
+├── metallb/                          → metallb (v0.16.1, app v0.14.9)
+├── traefik/                          → traefik (v41.0.0, app v3.7.5)
+├── cert-manager/                     → cert-manager (v1.17.0, app v1.17.0)
+├── csi-driver-nfs/                   → csi-driver-nfs (v4.13.3)
+├── tenant-rbac/                      → tenant-rbac (v1.0.0)
+├── kube-prometheus-stack/            → kube-prometheus-stack (v87.1.0, app v0.92.0)
+├── alertmanager-discord-webhook/     → alertmanager-discord-webhook (v1.0.0)
+├── local-path-provisioner/           → local-path-provisioner (v0.0.37)
+├── strimzi-kafka/                    → strimzi-kafka-operator (v0.46.1)
+├── kafka-cluster/                    → standalone (Kafka KRaft single-node)
+├── cloudnative-pg/                   → cloudnative-pg (v1.30.0, chart v0.29.0)
+└── postgres-cluster/                 → standalone (PostgreSQL 16 single-node)
 ```
 
 Each chart is an umbrella chart with a single upstream dependency. 
