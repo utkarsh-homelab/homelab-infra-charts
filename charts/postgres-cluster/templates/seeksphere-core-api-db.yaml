@@ -1,0 +1,10 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: seeksphere-core-api-db
+  namespace: postgres
+spec:
+  name: seeksphere_core_api
+  owner: db-iresh
+  cluster:
+    name: homelab-postgres
