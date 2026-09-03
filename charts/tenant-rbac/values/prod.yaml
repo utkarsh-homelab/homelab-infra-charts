@@ -8,6 +8,28 @@ tenant_rbac:
     kind: User
     name: tenant
 
+  # Narrow Role/RoleBinding grants for specific in-namespace ServiceAccounts
+  # (not the tenant's own identity above) — see
+  # templates/namespace-serviceaccount-roles.yaml for why these can't be
+  # self-granted by the tenant and have to live here instead.
+  serviceAccountRoles:
+    # tracer-agent (github.com/iresharma/tracer) runs as a Deployment (not
+    # a hostPath DaemonSet — the iresharma namespace enforces Pod Security
+    # "baseline", which rejects hostPath outright) that watches Pods and
+    # streams container logs via the pods/log subresource, the same
+    # mechanism `kubectl logs -f` uses. It only ever sees pods already
+    # inside "iresharma".
+    - namespace: iresharma
+      serviceAccount: tracer-agent
+      name: tracer-agent-pod-logs
+      rules:
+        - apiGroups: [""]
+          resources: ["pods"]
+          verbs: ["get", "list", "watch"]
+        - apiGroups: [""]
+          resources: ["pods/log"]
+          verbs: ["get"]
+
   # ArgoCD AppProject configuration
   project:
     name: tenant
